@@ -173,3 +173,80 @@ button {
   padding-bottom: 120px;
 }
 
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.splash-content {
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.splash-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  margin-bottom: 20px;
+}
+
+.splash-content h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.splash-content p {
+  color: #666;
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.install-banner {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 112px;
+  z-index: 120;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.install-banner strong {
+  font-size: 15px;
+}
+
+.install-banner p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.install-banner button {
+  white-space: nowrap;
+}

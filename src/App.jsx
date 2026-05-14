@@ -20,6 +20,8 @@ import MobilityBranchItem from "./components/MobilityBranchItem";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [showIosInstallGuide, setShowIosInstallGuide] = useState(false);
   const STORAGE_KEY = "scim-sr-calculator-data";
   const getSavedData = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -93,8 +95,52 @@ const [mobility, setMobility] = useState(
     mobility,
   };
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }, [scores, respiration, bladder, bowel, mobility]);
+
+  useEffect(() => {
+  const handleBeforeInstallPrompt = (event) => {
+    event.preventDefault();
+    setInstallPrompt(event);
+  };
+
+  const handleAppInstalled = () => {
+    setInstallPrompt(null);
+    setShowIosInstallGuide(false);
+  };
+
+  window.addEventListener(
+    "beforeinstallprompt",
+    handleBeforeInstallPrompt
+  );
+  
+  window.addEventListener("appinstalled", handleAppInstalled);
+
+  const isIosOrIpad =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && 
+      navigator.maxTouchPoints > 1);
+
+  const isStandalone =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+  if (isIosOrIpad && !isStandalone) {
+    setShowIosInstallGuide(true);
+  }
+
+  return () => {
+    window.removeEventListener(
+      "beforeinstallprompt", 
+      handleBeforeInstallPrompt
+    );
+    
+    window.removeEventListener(
+      "appinstalled", 
+      handleAppInstalled
+    );
+  };
+}, []);
 
   const respirationScore = calculateRespirationScore(respiration);
   const bladderScore = calculateBladderScore(bladder);
@@ -176,6 +222,17 @@ const [mobility, setMobility] = useState(
     });
     
   };
+
+  const handleInstallClick = async () => {
+  if (!installPrompt) return;
+
+  installPrompt.prompt();
+  const choiceResult = await installPrompt.userChoice;
+
+  if (choiceResult.outcome === "accepted") {
+    setInstallPrompt(null);
+  }
+};
 
 if (loading) {
   return (
@@ -342,6 +399,25 @@ if (loading) {
   </div>
 ))}
       </section>
+{installPrompt && (
+  <div className="install-banner">
+    <div>
+      <strong>アプリとして追加できます</strong>
+      <p>ホーム画面からすぐ起動できます。</p>
+    </div>
+    <button onClick={handleInstallClick}>追加</button>
+  </div>
+)}
+
+{showIosInstallGuide && (
+  <div className="install-banner">
+    <div>
+      <strong>ホーム画面に追加できます</strong>
+      <p>共有ボタン →「ホーム画面に追加」を選んでください。</p>
+    </div>
+    <button onClick={() => setShowIosInstallGuide(false)}>閉じる</button>
+  </div>
+)}
 
       <div className="bottom-score-bar">
       <div className="bottom-score-main">
