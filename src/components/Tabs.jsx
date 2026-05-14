@@ -1,8 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Tabs({ tabs }) {
   const [activeTab, setActiveTab] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
+  const scrollPositions = useRef({});
+
+  const changeTab = (nextTab) => {
+    scrollPositions.current[activeTab] = window.scrollY;
+    setActiveTab(nextTab);
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: scrollPositions.current[nextTab] ?? 0,
+        behavior: "auto",
+      });
+    }, 0);
+  };
 
   const handleTouchStart = (event) => {
     setTouchStartX(event.touches[0].clientX);
@@ -16,11 +29,11 @@ export default function Tabs({ tabs }) {
 
     if (Math.abs(diff) > 50) {
       if (diff > 0 && activeTab < tabs.length - 1) {
-        setActiveTab(activeTab + 1);
+        changeTab(activeTab + 1);
       }
 
       if (diff < 0 && activeTab > 0) {
-        setActiveTab(activeTab - 1);
+        changeTab(activeTab - 1);
       }
     }
 
@@ -34,7 +47,7 @@ export default function Tabs({ tabs }) {
           <button
             key={tab.label}
             className={activeTab === index ? "tab-button active" : "tab-button"}
-            onClick={() => setActiveTab(index)}
+            onClick={() => changeTab(index)}
           >
             {tab.label}
           </button>
