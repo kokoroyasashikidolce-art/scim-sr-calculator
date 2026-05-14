@@ -250,3 +250,35 @@ button {
 .install-banner button {
   white-space: nowrap;
 }
+.tab-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #f5f7fb;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 8px 0 12px;
+  margin-bottom: 12px;
+}
+
+.tab-button {
+  border: none;
+  background: transparent;
+  padding: 12px 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #666;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-button.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.tab-content {
+  min-height: 60vh;
+  touch-action: pan-y;
+}
+

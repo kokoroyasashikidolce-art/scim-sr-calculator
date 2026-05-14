@@ -20,6 +20,9 @@ import MobilityBranchItem from "./components/MobilityBranchItem";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const tabs = ["計算", "概要", "ちな豆"];
+  const [activeTab, setActiveTab] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
   const [installPrompt, setInstallPrompt] = useState(null);
   const [showIosInstallGuide, setShowIosInstallGuide] = useState(false);
   const STORAGE_KEY = "scim-sr-calculator-data";
@@ -224,14 +227,37 @@ const [mobility, setMobility] = useState(
   };
 
   const handleInstallClick = async () => {
-  if (!installPrompt) return;
+    if (!installPrompt) return;
 
-  installPrompt.prompt();
-  const choiceResult = await installPrompt.userChoice;
+    installPrompt.prompt();
+    const choiceResult = await installPrompt.userChoice;
 
-  if (choiceResult.outcome === "accepted") {
-    setInstallPrompt(null);
+    if (choiceResult.outcome === "accepted") {
+      setInstallPrompt(null);
+    }
+  };
+  
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX === null) return;
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && activeTab < tabs.length - 1) {
+        setActiveTab(activeTab + 1);
+      }
+
+      if (diff < 0 && activeTab > 0) {
+        setActiveTab(activeTab - 1);
+    }
   }
+
+  setTouchStartX(null);
 };
 
 if (loading) {
@@ -253,15 +279,36 @@ if (loading) {
 }
 
   return (
-    <main className="container">
-      <h1>
-        SCIM-SR
-        <br />
-        <span style={{ fontSize: "16px", fontWeight: "normal" }}>
+    <>
+      <main className="container">
+        <h1>
+          SCIM-SR
+         <br />
+         <span style={{ fontSize: "16px", fontWeight: "normal" }}>
           (Japanese version of Spinal Cord Independence Measure – self report
           自己報告形式の脊髄障害自立度評価法)
         </span>
-      </h1>
+       </h1>
+   
+      <div className="tab-header">
+        {tabs.map((tab, index) => (
+          <button
+            key={tab}
+            className={activeTab === index ? "tab-button active" : "tab-button"}
+            onClick={() => setActiveTab(index)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>    
+
+      <div
+        className="tab-content"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+
+</div>
 
       <section className="summary">
         <h2>合計：{totalScore} / 100 点</h2>
@@ -432,5 +479,6 @@ if (loading) {
   </div>
 </div>
     </main>
-  );
+  </>
+);
 }
