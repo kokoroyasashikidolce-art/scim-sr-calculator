@@ -64,21 +64,26 @@ export default function ScoreCalculator({ scale }) {
   return (
     <>
       <section className="summary">
-        <h2>
-          合計：{totalScore}
-          {scale.totalScore ? ` / ${scale.totalScore} 点` : " 点"}
-        </h2>
+        {scale.showTotal === false ? (
+          <h2>{scale.title}</h2>
+        ) : (
+          <h2>
+            合計：{totalScore}
+            {scale.totalScore ? ` / ${scale.totalScore} 点` : " 点"}
+          </h2>
+      )}
 
         <p>
           入力済み：{selectedCount} / {totalItemCount} 項目
         </p>
 
-        {domainTotals.map((domain) => (
-          <p key={domain.id}>
-            {domain.title}：{domain.total}
-            {domain.maxScore ? ` / ${domain.maxScore}` : ""}
-          </p>
-        ))}
+        {scale.showTotal !== false &&
+          domainTotals.map((domain) => (
+            <p key={domain.id}>
+              {domain.title}：{domain.total}
+              {domain.maxScore ? ` / ${domain.maxScore}` : ""}
+           </p>
+         ))}
 
         <button onClick={resetScores}>リセット</button>
       </section>

@@ -3,6 +3,7 @@ export const masScale = {
   title: "Modified Ashworth Scale",
   shortTitle: "MAS",
   totalScore: null,
+  showTotal: false,
 
   tabs: {
     overview:
