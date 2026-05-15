@@ -19,7 +19,7 @@ import { scales } from "./data/scales";
 import HomeDashboard from "./components/HomeDashboard";
 
 import { simpleDomains } from "./data/scimData";
-import ScaleList from "./components/ScaleList";
+import ScaleList from "./components/ScaleList.jsx";
 
 export default function App() {
   const scimSrScale = scales.find(
