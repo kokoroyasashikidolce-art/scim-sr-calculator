@@ -14,8 +14,6 @@ import CalculateTab from "./components/CalculateTab";
 import OverviewTab from "./components/OverviewTab";
 import TipsTab from "./components/TipsTab";
 
-import ScoreCalculator from "./components/common/ScoreCalculator";
-
 import { scales } from "./data/scales";
 
 import HomeDashboard from "./components/HomeDashboard";
@@ -30,10 +28,6 @@ export default function App() {
   );
   const selectedScale = scales.find(
     (scale) => scale.id === selectedScaleId
-  );
-
-  const masScale = scales.find(
-    (scale) => scale.id === "mas"
   );
 
   const simpleDomains = scimSrScale.domains;
@@ -332,7 +326,7 @@ return (
               },
               { label: "概要", content: <OverviewTab /> },
               { label: "豆知識", content: <TipsTab /> },
-              { label: "MAS確認", content: <ScoreCalculator scale={masScale} /> },
+              
             ]}
           />
         </>
