@@ -42,3 +42,5 @@ export default function ScaleList({ scales, onSelectScale, onBackHome }) {
     </section>
   );
 }
+
+fff
