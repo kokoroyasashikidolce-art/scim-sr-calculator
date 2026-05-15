@@ -2,8 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 
 import "./App.css";
 
-import { simpleDomains } from "./data/scimData";
-
 import {
   calculateRespirationScore,
   calculateBladderScore,
@@ -11,21 +9,37 @@ import {
   calculateMobilityScore,
 } from "./utils/scoring";
 
-import RespirationItem from "./components/RespirationItem";
-import BladderItem from "./components/BladderItem";
-import BowelItem from "./components/BowelItem";
-import MobilityBranchItem from "./components/MobilityBranchItem";
-
 import Tabs from "./components/Tabs";
 import CalculateTab from "./components/CalculateTab";
 import OverviewTab from "./components/OverviewTab";
 import TipsTab from "./components/TipsTab";
 
 import ScoreCalculator from "./components/common/ScoreCalculator";
-import { masScale } from "./data/scales/mas";
+
+import { scales } from "./data/scales";
+
+import HomeDashboard from "./components/HomeDashboard";
+
+import { simpleDomains } from "./data/scimData";
+import ScaleList from "./components/ScaleList";
 
 export default function App() {
+  const scimSrScale = scales.find(
+    (scale) => scale.id === "scim-sr"
+
+  );
+  const selectedScale = scales.find(
+    (scale) => scale.id === selectedScaleId
+  );
+
+  const masScale = scales.find(
+    (scale) => scale.id === "mas"
+  );
+
+  const simpleDomains = scimSrScale.domains;
   const [loading, setLoading] = useState(true);
+  const [currentMenu, setCurrentMenu] = useState("home");
+  const [selectedScaleId, setSelectedScaleId] = useState(null);
   const [installPrompt, setInstallPrompt] = useState(null);
   const [showIosInstallGuide, setShowIosInstallGuide] = useState(false);
   const STORAGE_KEY = "scim-sr-calculator-data";
@@ -245,104 +259,117 @@ if (loading) {
   return (
     <div className="splash-screen">
       <div className="splash-content">
-        <img
-          src="/icon-512.png"
-          alt="SCIM-SR"
-          className="splash-logo"
-        />
+        <img src="/icon-512.png" alt ="SCIM-SR" className="splash-logo" />
+        <h1>リハ評価スコア</h1>
 
-        <h1>SCIM-SR</h1>
 
-        <p>Spinal Cord Independence Measure</p>
+        <p>
+          Rehabilitation Assessment Tools
+        </p>
       </div>
     </div>
   );
 }
-
-  return (
-    <>
-      <main className="container">
-        <h1>
-          SCIM-SR
-         <br />
-         <span style={{ fontSize: "16px", fontWeight: "normal" }}>
-          (Japanese version of Spinal Cord Independence Measure – self report
-          自己報告形式の脊髄障害自立度評価法)
+return (
+  <>
+    <main className="container">
+      <h1>
+        リハ評価スコア
+        <br />
+        <span style={{ fontSize: "16px", fontWeight: "normal" }}>
+          Rehabilitation Assessment Tools
         </span>
-       </h1>
-<Tabs
-  tabs={[
-    {
-      label: "計算",
-      content: (
-        <CalculateTab
-          simpleDomains={simpleDomains}
-          scores={scores}
-          respiration={respiration}
-          setRespiration={setRespiration}
-          bladder={bladder}
-          setBladder={setBladder}
-          bowel={bowel}
-          setBowel={setBowel}
-          mobility={mobility}
-          setMobility={setMobility}
-          handleChange={handleChange}
-          resetScores={resetScores}
-          selfCareTotal={selfCareTotal}
-          respirationTotal={respirationTotal}
-          mobilityTotal={mobilityTotal}
-          totalScore={totalScore}
-          selectedCount={selectedCount}
-          totalItemCount={totalItemCount}
-        />
-      ),
-    },
-    {
-      label: "概要",
-      content: <OverviewTab />,
-    },
-    {
-      label: "豆知識",
-      content: <TipsTab />,
-    },
-    {
-     label: "MAS確認",
-     content: <ScoreCalculator scale={masScale} />,
-     },
-  ]}
-/>
-{installPrompt && (
-  <div className="install-banner">
-    <div>
-      <strong>アプリとして追加できます</strong>
-      <p>ホーム画面からすぐ起動できます。</p>
-    </div>
-    <button onClick={handleInstallClick}>追加</button>
-  </div>
-)}
+      </h1>
 
-{showIosInstallGuide && (
-  <div className="install-banner">
-    <div>
-      <strong>ホーム画面に追加できます</strong>
-      <p>共有ボタン →「ホーム画面に追加」を選んでください。</p>
-    </div>
-    <button onClick={() => setShowIosInstallGuide(false)}>閉じる</button>
-  </div>
-)}
+      {selectedScale && (
+        <HomeDashboard onSelectMenu={setCurrentMenu} />
+      )}
+      {currentMenu === "scale-list" && !selectedScale && (
+        <ScaleList
+        scales={scales}
+        onSelectScale={setSelectedScaleId}
+       onBackHome={() => setCurrentMenu("home")}
+        />
+      )}
+      
+      {currentMenu !== "home" && (
+        <>
+          <button
+            onClick={() => {
+              setSelectedScaleId(null);
+              setCurrentMenu("scale-list");    
+      }}
+          >
+           評価一覧へ戻る
+          </button>
+
+          <Tabs
+            tabs={[
+              {
+                label: "計算",
+                content: (
+                  <CalculateTab
+                    scale={scimSrScale}
+                    scores={scores}
+                    respiration={respiration}
+                    setRespiration={setRespiration}
+                    bladder={bladder}
+                    setBladder={setBladder}
+                    bowel={bowel}
+                    setBowel={setBowel}
+                    mobility={mobility}
+                    setMobility={setMobility}
+                    handleChange={handleChange}
+                    resetScores={resetScores}
+                    selfCareTotal={selfCareTotal}
+                    respirationTotal={respirationTotal}
+                    mobilityTotal={mobilityTotal}
+                    totalScore={totalScore}
+                    selectedCount={selectedCount}
+                    totalItemCount={totalItemCount}
+                  />
+                ),
+              },
+              { label: "概要", content: <OverviewTab /> },
+              { label: "豆知識", content: <TipsTab /> },
+              { label: "MAS確認", content: <ScoreCalculator scale={masScale} /> },
+            ]}
+          />
+        </>
+      )}
+
+      {installPrompt && (
+        <div className="install-banner">
+          <div>
+            <strong>アプリとして追加できます</strong>
+            <p>ホーム画面からすぐ起動できます。</p>
+          </div>
+          <button onClick={handleInstallClick}>追加</button>
+        </div>
+      )}
+
+      {showIosInstallGuide && (
+        <div className="install-banner">
+          <div>
+            <strong>ホーム画面に追加できます</strong>
+            <p>共有ボタン →「ホーム画面に追加」を選んでください。</p>
+          </div>
+          <button onClick={() => setShowIosInstallGuide(false)}>閉じる</button>
+        </div>
+      )}
 
       <div className="bottom-score-bar">
-      <div className="bottom-score-main">
-       <span>合計</span>
-       <strong>{totalScore} / 100 点</strong>
-      </div>
+        <div className="bottom-score-main">
+          <span>合計</span>
+          <strong>{totalScore} / 100 点</strong>
+        </div>
 
-  <div className="bottom-score-sub">
-    <span>セルフケア {selfCareTotal} / 20</span>
-    <span>呼吸と排泄管理 {respirationTotal} / 40</span>
-    <span>移動 {mobilityTotal} / 40</span>
-  </div>
-</div>
+        <div className="bottom-score-sub">
+          <span>セルフケア {selfCareTotal} / 20</span>
+          <span>呼吸と排泄管理 {respirationTotal} / 40</span>
+          <span>移動 {mobilityTotal} / 40</span>
+        </div>
+      </div>
     </main>
   </>
 );

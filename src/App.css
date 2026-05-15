@@ -284,4 +284,92 @@ button {
   min-height: 60vh;
   touch-action: pan-y;
 }
+.home-dashboard {
+  margin-top: 16px;
+}
 
+.home-lead {
+  color: #666;
+  line-height: 1.6;
+}
+
+.home-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.home-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.home-card-icon {
+  font-size: 28px;
+  width: 40px;
+  text-align: center;
+}
+
+.home-card-text {
+  display: grid;
+  gap: 4px;
+}
+
+.home-card-text strong {
+  font-size: 18px;
+}
+
+.home-card-text small {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (min-width: 700px) {
+  .home-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.category-block {
+  margin-top: 24px;
+}
+
+.category-block h3 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.scale-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.scale-card {
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 4px;
+}
+
+.scale-card strong {
+  font-size: 18px;
+}
+
+.scale-card span {
+  font-size: 13px;
+  color: #666;
+}
