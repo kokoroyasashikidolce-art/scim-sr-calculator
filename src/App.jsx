@@ -278,7 +278,7 @@ return (
       {currentMenu === "home" && (
         <HomeDashboard onSelectMenu={setCurrentMenu} />
       )}
-      
+
       {currentMenu === "scale-list" && !selectedScale && (
         <ScaleList
         scales={scales}
@@ -287,7 +287,7 @@ return (
         />
       )}
       
-      {currentMenu !== "home" && (
+      {selectedScale && (
         <>
           <button
             onClick={() => {
@@ -304,7 +304,7 @@ return (
                 label: "計算",
                 content: (
                   <CalculateTab
-                    scale={scimSrScale}
+                    scale={selectedScale}
                     scores={scores}
                     respiration={respiration}
                     setRespiration={setRespiration}
@@ -353,6 +353,7 @@ return (
         </div>
       )}
 
+      {selectedScale && selectedScale.id === "scim-sr" && (
       <div className="bottom-score-bar">
         <div className="bottom-score-main">
           <span>合計</span>
@@ -365,6 +366,7 @@ return (
           <span>移動 {mobilityTotal} / 40</span>
         </div>
       </div>
+      )}
     </main>
   </>
 );
