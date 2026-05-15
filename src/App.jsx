@@ -21,7 +21,8 @@ import CalculateTab from "./components/CalculateTab";
 import OverviewTab from "./components/OverviewTab";
 import TipsTab from "./components/TipsTab";
 
-
+import ScoreCalculator from "./components/common/ScoreCalculator";
+import { masScale } from "./data/scales/mas";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -304,6 +305,10 @@ if (loading) {
       label: "豆知識",
       content: <TipsTab />,
     },
+    {
+     label: "MAS確認",
+     content: <ScoreCalculator scale={masScale} />,
+     },
   ]}
 />
 {installPrompt && (
