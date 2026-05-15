@@ -26,14 +26,14 @@ export default function App() {
     (scale) => scale.id === "scim-sr"
 
   );
-  const selectedScale = scales.find(
-    (scale) => scale.id === selectedScaleId
-  );
 
   const simpleDomains = scimSrScale.domains;
   const [loading, setLoading] = useState(true);
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
+  const selectedScale = scales.find(
+    (scale) => scale.id === selectedScaleId
+  );
   const [installPrompt, setInstallPrompt] = useState(null);
   const [showIosInstallGuide, setShowIosInstallGuide] = useState(false);
   const STORAGE_KEY = "scim-sr-calculator-data";
@@ -275,9 +275,10 @@ return (
         </span>
       </h1>
 
-      {selectedScale && (
+      {currentMenu === "home" && (
         <HomeDashboard onSelectMenu={setCurrentMenu} />
       )}
+      
       {currentMenu === "scale-list" && !selectedScale && (
         <ScaleList
         scales={scales}
