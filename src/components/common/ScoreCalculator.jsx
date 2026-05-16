@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import ScoreSelectItem from "./ScoreSelectItem";
 import CopyResultButton from "./CopyResultButton";
+import FimLocomotionItem from "../special/FimLocomotionItem";
 
 export default function ScoreCalculator({ scale }) {
   const initialScores = {};
@@ -15,6 +16,8 @@ export default function ScoreCalculator({ scale }) {
 
   const [scores, setScores] = useState(initialScores);
 
+  const [specialScores, setSpecialScores] = useState({});
+
   const handleChange = (itemId, value) => {
     setScores((prev) => ({
       ...prev,
@@ -25,8 +28,11 @@ export default function ScoreCalculator({ scale }) {
   const domainTotals = useMemo(() => {
     return scale.domains.map((domain) => {
       const total = domain.items.reduce((sum, item) => {
-        if (item.type === "special") return sum;
-
+       if (item.type === "special") {
+  const specialValue = specialScores[item.id];
+  if (!specialValue?.score) return sum;
+  return sum + Number(specialValue.score);
+}
         const value = scores[item.id];
         if (value === "") return sum;
 
@@ -39,8 +45,7 @@ export default function ScoreCalculator({ scale }) {
         total,
         maxScore: domain.maxScore,
       };
-    });
-  }, [scores, scale.domains]);
+    });}, [scores, specialScores, scale.domains]);
 
   const totalScore = domainTotals.reduce(
     (sum, domain) => sum + domain.total,
@@ -61,21 +66,46 @@ export default function ScoreCalculator({ scale }) {
     setScores(initialScores);
   };
 
-  const selectedItemsText = scale.domains
-    .flatMap((domain) =>
-      domain.items
-        .filter((item) => scores[item.id] !== "")
-        .map((item) => {
-          const selectedOption = item.options.find(
-            (option) => String(option.score) === String(scores[item.id])
-          );
+  const selectedNormalItems = scale.domains.flatMap((domain) =>
+  domain.items
+    .filter((item) => item.type !== "special")
+    .filter((item) => scores[item.id] !== "")
+    .map((item) => {
+      const selectedOption = item.options.find(
+        (option) => String(option.score) === String(scores[item.id])
+      );
 
-          const scoreText = selectedOption?.score ?? scores[item.id];
+      const scoreText = selectedOption?.score ?? scores[item.id];
 
-          return `${item.title || item.name}：${scoreText}`;
-        })
-    )
-    .join("\n");
+      return `${item.title || item.name}：${scoreText}点`;
+    })
+);
+
+const selectedSpecialItems = scale.domains.flatMap((domain) =>
+  domain.items
+    .filter((item) => item.type === "special")
+    .map((item) => {
+      const value = specialScores[item.id];
+
+      if (!value?.score) return null;
+
+      const methodText =
+        value.method === "walk"
+          ? "歩行"
+          : value.method === "wheelchair"
+          ? "車いす"
+          : "";
+
+      return `${item.title || item.name}（${methodText}）：${value.score}点`;
+    })
+    .filter(Boolean)
+);
+
+const selectedItemsText = [
+  ...selectedNormalItems,
+  ...selectedSpecialItems,
+].join("\n");
+
 
   const copyText =
     scale.showTotal === false
@@ -130,16 +160,20 @@ ${selectedItemsText || "未選択"}`;
           )}
 
           {domain.items.map((item) => {
-            if (item.type === "special") {
-              return (
-                <div className="branch-item" key={item.id}>
-                  <h3>{item.title}</h3>
-                  <p className="description">
-                    この項目は特殊分岐形式です。専用部品で後から表示します。
-                  </p>
-                </div>
-              );
-            }
+            if (item.type === "special" && item.component === "FimLocomotionItem") {
+  return (
+    <FimLocomotionItem
+      key={item.id}
+      value={specialScores[item.id]}
+      onChange={(newValue) =>
+        setSpecialScores((prev) => ({
+          ...prev,
+          [item.id]: newValue,
+        }))
+      }
+    />
+  );
+}
 
             return (
               <ScoreSelectItem
