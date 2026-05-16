@@ -373,3 +373,16 @@ button {
   font-size: 13px;
   color: #666;
 }
+.copy-result-card {
+  margin-bottom: 24px;
+}
+
+.copy-preview {
+  white-space: pre-wrap;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}

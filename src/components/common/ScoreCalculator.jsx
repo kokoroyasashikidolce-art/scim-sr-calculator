@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import ScoreSelectItem from "./ScoreSelectItem";
+import CopyResultButton from "./CopyResultButton";
 
 export default function ScoreCalculator({ scale }) {
   const initialScores = {};
@@ -119,6 +120,15 @@ export default function ScoreCalculator({ scale }) {
           })}
         </section>
       ))}
+
+      <CopyResultButton
+  title={scale.shortTitle || scale.title}
+  text={`${scale.shortTitle || scale.title}
+${domainTotals
+  .map((domain) => `${domain.title}：${domain.total}`)
+  .join("\n")}`}
+/>
+
     </>
   );
 }
