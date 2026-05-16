@@ -1,3 +1,10 @@
+import {
+  calculateRespirationScore,
+  calculateBladderScore,
+  calculateBowelScore,
+  calculateMobilityScore,
+} from "../utils/scoring";
+
 import RespirationItem from "./RespirationItem";
 import BladderItem from "./BladderItem";
 import BowelItem from "./BowelItem";
@@ -34,6 +41,13 @@ export default function CalculateTab({
       </section>
     );
   }
+
+const respirationScore = calculateRespirationScore(respiration);
+const bladderScore = calculateBladderScore(bladder);
+const bowelScore = calculateBowelScore(bowel);
+const indoorScore = calculateMobilityScore(mobility.indoor);
+const moderateScore = calculateMobilityScore(mobility.moderate);
+const outdoorScore = calculateMobilityScore(mobility.outdoor);
 
 const selectedSimpleItems = simpleDomains.flatMap((domain) =>
   domain.items
@@ -208,10 +222,6 @@ ${[...selectedBranchItems, ...selectedSimpleItems].join("\n")}`;
       <CopyResultButton
   title="SCIM-SR"
   text={copyText}
-  text={`SCIM-SR：${totalScore}/100点
-セルフケア：${selfCareTotal}/20
-呼吸と排泄管理：${respirationTotal}/40
-移動：${mobilityTotal}/40`}
 />
 
     </>
