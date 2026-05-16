@@ -62,7 +62,54 @@ export default function ScoreCalculator({ scale }) {
     setScores(initialScores);
   };
 
-  return (
+       const selectedItemsText = scale.domains
+  .flatMap((domain) =>
+    domain.items
+      .filter((item) => scores[item.id] !== "")
+      .map((item) => {
+        const selectedOption = item.options.find(
+          (option) => String(option.score) === String(scores[item.id])
+        );
+
+        const scoreText = selectedOption?.score ?? scores[item.id];
+
+        return `${item.title || item.name}：${scoreText}`;
+      })
+  )
+  .join("\n");
+
+const copyText =
+  scale.showTotal === false
+    ? `${scale.shortTitle || scale.title}
+
+
+ 
+    
+【選択項目】
+${selectedItemsText || "未選択"}`
+    : `${scale.shortTitle || scale.title}：${totalScore}${
+        scale.totalScore ? `/${scale.totalScore}点` : "点"
+      }
+
+${domainTotals
+  .map((domain) => `${domain.title}：${domain.total}`)
+  .join("\n")}
+
+【選択項目】
+${selectedItemsText || "未選択"}`;
+
+
+      <CopyResultButton
+  title={scale.shortTitle || scale.title}
+  text={`${scale.shortTitle || scale.title}
+  title={scale.shortTitle || scale.title}
+  text={copyText}
+${domainTotals
+  .map((domain) => `${domain.title}：${domain.total}`)
+  .join("\n")}`}
+/>
+
+ return (
     <>
       <section className="summary">
         {scale.showTotal === false ? (
@@ -120,14 +167,6 @@ export default function ScoreCalculator({ scale }) {
           })}
         </section>
       ))}
-
-      <CopyResultButton
-  title={scale.shortTitle || scale.title}
-  text={`${scale.shortTitle || scale.title}
-${domainTotals
-  .map((domain) => `${domain.title}：${domain.total}`)
-  .join("\n")}`}
-/>
 
     </>
   );
