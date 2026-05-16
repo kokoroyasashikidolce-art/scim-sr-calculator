@@ -13,12 +13,11 @@ import Tabs from "./components/Tabs";
 import CalculateTab from "./components/CalculateTab";
 import OverviewTab from "./components/OverviewTab";
 import TipsTab from "./components/TipsTab";
-
+import ScoreCalculator from "./components/common/ScoreCalculator";
 import { scales } from "./data/scales";
 
 import HomeDashboard from "./components/HomeDashboard";
 
-import { simpleDomains } from "./data/scimData";
 import ScaleList from "./components/ScaleList.jsx";
 
 export default function App() {
@@ -26,9 +25,8 @@ export default function App() {
     (scale) => scale.id === "scim-sr"
 
   );
-
-  const simpleDomains = scimSrScale.domains;
   const [loading, setLoading] = useState(true);
+  const simpleDomains = scimSrScale.domains;
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
   const selectedScale = scales.find(
@@ -237,33 +235,29 @@ const [mobility, setMobility] = useState(
     
   };
 
-  const handleInstallClick = async () => {
-    if (!installPrompt) return;
+ const handleInstallClick = async () => {
+  if (!installPrompt) return;
 
-    installPrompt.prompt();
-    const choiceResult = await installPrompt.userChoice;
+  installPrompt.prompt();
+  const choiceResult = await installPrompt.userChoice;
 
-    if (choiceResult.outcome === "accepted") {
-      setInstallPrompt(null);
-    }
-  };
-
+  if (choiceResult.outcome === "accepted") {
+  setInstallPrompt(null);
+}
+};
 
 if (loading) {
   return (
     <div className="splash-screen">
       <div className="splash-content">
-        <img src="/icon-512.png" alt ="SCIM-SR" className="splash-logo" />
+        <img src="/icon-512.png" alt="SCIM-SR" className="splash-logo" />
         <h1>リハ評価スコア</h1>
-
-
-        <p>
-          Rehabilitation Assessment Tools
-        </p>
+        <p>Rehabilitation Assessment Tools</p>
       </div>
     </div>
   );
 }
+
 return (
   <>
     <main className="container">
