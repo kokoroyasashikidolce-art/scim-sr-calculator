@@ -35,6 +35,29 @@ export default function CalculateTab({
     );
   }
 
+const selectedSimpleItems = simpleDomains.flatMap((domain) =>
+  domain.items
+    .filter((item) => scores[item.id] !== "")
+    .map((item) => `${item.name}：${scores[item.id]}点`)
+);
+
+const selectedBranchItems = [
+  respirationScore !== null ? `5. 呼吸：${respirationScore}点` : null,
+  bladderScore !== null ? `6. 排尿管理：${bladderScore}点` : null,
+  bowelScore !== null ? `7. 排便管理：${bowelScore}点` : null,
+  indoorScore !== null ? `12. 屋内の移動：${indoorScore}点` : null,
+  moderateScore !== null ? `13. 中程度の距離の移動：${moderateScore}点` : null,
+  outdoorScore !== null ? `14. 100m以上の屋外の移動：${outdoorScore}点` : null,
+].filter(Boolean);
+
+const copyText = `SCIM-SR：${totalScore}/100点
+セルフケア：${selfCareTotal}/20
+呼吸と排泄管理：${respirationTotal}/40
+移動：${mobilityTotal}/40
+
+【選択項目】
+${[...selectedBranchItems, ...selectedSimpleItems].join("\n")}`;
+
   return (
 
 
@@ -184,6 +207,7 @@ export default function CalculateTab({
 
       <CopyResultButton
   title="SCIM-SR"
+  text={copyText}
   text={`SCIM-SR：${totalScore}/100点
 セルフケア：${selfCareTotal}/20
 呼吸と排泄管理：${respirationTotal}/40
@@ -191,5 +215,7 @@ export default function CalculateTab({
 />
 
     </>
+
+    
   );
 }
