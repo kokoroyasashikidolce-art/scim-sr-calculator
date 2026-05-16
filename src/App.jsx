@@ -304,7 +304,7 @@ return (
                 label: "計算",
                 content: (
                   <CalculateTab
-                    scale={selectedScale}
+                    scale={scimSrScale}
                     scores={scores}
                     respiration={respiration}
                     setRespiration={setRespiration}
