@@ -2,6 +2,7 @@ import RespirationItem from "./RespirationItem";
 import BladderItem from "./BladderItem";
 import BowelItem from "./BowelItem";
 import MobilityBranchItem from "./MobilityBranchItem";
+import CopyResultButton from "./common/CopyResultButton";
 
 export default function CalculateTab({
   scale,
@@ -180,6 +181,15 @@ export default function CalculateTab({
           </div>
         ))}
       </section>
+
+      <CopyResultButton
+  title="SCIM-SR"
+  text={`SCIM-SR：${totalScore}/100点
+セルフケア：${selfCareTotal}/20
+呼吸と排泄管理：${respirationTotal}/40
+移動：${mobilityTotal}/40`}
+/>
+
     </>
   );
 }
