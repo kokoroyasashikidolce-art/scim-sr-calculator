@@ -301,30 +301,36 @@ return (
           <Tabs
             tabs={[
               {
-                label: "計算",
-                content: (
-                  <CalculateTab
-                    scale={scimSrScale}
-                    scores={scores}
-                    respiration={respiration}
-                    setRespiration={setRespiration}
-                    bladder={bladder}
-                    setBladder={setBladder}
-                    bowel={bowel}
-                    setBowel={setBowel}
-                    mobility={mobility}
-                    setMobility={setMobility}
-                    handleChange={handleChange}
-                    resetScores={resetScores}
-                    selfCareTotal={selfCareTotal}
-                    respirationTotal={respirationTotal}
-                    mobilityTotal={mobilityTotal}
-                    totalScore={totalScore}
-                    selectedCount={selectedCount}
-                    totalItemCount={totalItemCount}
-                  />
-                ),
-              },
+              label: "計算",
+              content:
+              selectedScale.id === "scim-sr" ? (
+              <CalculateTab
+               scale={scimSrScale}
+               scores={scores}
+               respiration={respiration}
+               setRespiration={setRespiration}
+               bladder={bladder}
+               setBladder={setBladder}
+               bowel={bowel}
+               setBowel={setBowel}
+               mobility={mobility}
+               setMobility={setMobility}
+               handleChange={handleChange}
+               resetScores={resetScores}
+               selfCareTotal={selfCareTotal}
+               respirationTotal={respirationTotal}
+               mobilityTotal={mobilityTotal}
+               totalScore={totalScore}
+               selectedCount={selectedCount}
+               totalItemCount={totalItemCount}
+             />
+            ) : (
+              <ScoreCalculator scale={selectedScale} />
+            ),
+          },
+
+
+
               { label: "概要", content: <OverviewTab /> },
               { label: "豆知識", content: <TipsTab /> },
               

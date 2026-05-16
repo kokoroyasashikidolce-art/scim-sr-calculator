@@ -1,8 +1,9 @@
 export const masScale = {
   id: "mas",
   title: "Modified Ashworth Scale",
+
   shortTitle: "MAS",
-  totalScore: null,
+  category: "stroke",
   showTotal: false,
 
   tabs: {
