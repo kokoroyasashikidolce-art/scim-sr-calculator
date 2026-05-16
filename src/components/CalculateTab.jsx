@@ -4,7 +4,7 @@ import BowelItem from "./BowelItem";
 import MobilityBranchItem from "./MobilityBranchItem";
 
 export default function CalculateTab({
-  simpleDomains,
+  scale,
   scores,
   respiration,
   setRespiration,
@@ -23,7 +23,20 @@ export default function CalculateTab({
   selectedCount,
   totalItemCount,
 }) {
+  const simpleDomains = scale?.domains ?? [];
+
+  if (simpleDomains.length < 3) {
+    return (
+      <section className="card">
+        <h2>読み込みエラー</h2>
+        <p>この評価スコアのデータ形式を確認してください。</p>
+      </section>
+    );
+  }
+
   return (
+
+
     <>
       <section className="summary">
         <h2>合計：{totalScore} / 100 点</h2>
