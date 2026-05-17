@@ -186,6 +186,17 @@ if (item.type === "special") {
   );
 }
 
+if (!item.options) {
+  return (
+    <div className="branch-item" key={item.id}>
+      <h3>{item.title || item.name}</h3>
+      <p className="description">
+        この項目の設定を確認してください。
+      </p>
+    </div>
+  );
+}
+
 return (
   <ScoreSelectItem
     key={item.id}
