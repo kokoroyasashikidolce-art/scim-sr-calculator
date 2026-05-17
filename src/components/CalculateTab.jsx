@@ -82,9 +82,9 @@ ${[...selectedBranchItems, ...selectedSimpleItems].join("\n")}`;
           入力済み：{selectedCount} / {totalItemCount} 項目
         </p>
 
-        <p>セルフケア：{selfCareTotal} / 20</p>
-        <p>呼吸と排泄管理：{respirationTotal} / 40</p>
-        <p>移動：{mobilityTotal} / 40</p>
+        <p>セルフケア：{selfCareTotal} / 20点</p>
+        <p>呼吸と排泄管理：{respirationTotal} / 40点</p>
+        <p>移動：{mobilityTotal} / 40点</p>
 
         <button onClick={resetScores}>リセット</button>
       </section>

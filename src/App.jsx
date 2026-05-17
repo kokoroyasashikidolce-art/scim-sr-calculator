@@ -361,9 +361,9 @@ return (
         </div>
 
         <div className="bottom-score-sub">
-          <span>セルフケア {selfCareTotal} / 20</span>
-          <span>呼吸と排泄管理 {respirationTotal} / 40</span>
-          <span>移動 {mobilityTotal} / 40</span>
+          <span>セルフケア {selfCareTotal} / 20点</span>
+          <span>呼吸と排泄管理 {respirationTotal} / 40点</span>
+          <span>移動 {mobilityTotal} / 40点</span>
         </div>
       </div>
       )}

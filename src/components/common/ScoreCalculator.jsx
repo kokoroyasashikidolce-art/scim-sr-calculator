@@ -146,7 +146,7 @@ ${selectedItemsText || "未選択"}`;
           domainTotals.map((domain) => (
             <p key={domain.id}>
               {domain.title}：{domain.total}
-              {domain.maxScore ? ` / ${domain.maxScore}` : ""}
+              {domain.maxScore ? ` / ${domain.maxScore} 点` : " 点"}
             </p>
           ))}
 
@@ -214,6 +214,27 @@ return (
           })}
         </section>
       ))}
+
+    {scale.fixedBottomBar && scale.showTotal !== false && (
+  <div className="bottom-score-bar">
+    <div className="bottom-score-main">
+      <span>合計</span>
+      <strong>
+        {totalScore}
+        {scale.totalScore ? ` / ${scale.totalScore} 点` : " 点"}
+      </strong>
+    </div>
+
+    <div className="bottom-score-sub">
+      {domainTotals.map((domain) => (
+        <span key={domain.id}>
+          {domain.title} {domain.total}
+          {domain.maxScore ? ` / ${domain.maxScore} 点` : " 点"}
+        </span>
+      ))}
+    </div>
+  </div>
+)}
 
       <CopyResultButton
         title={scale.shortTitle || scale.title}

@@ -5,7 +5,8 @@ export const fimScale = {
   category: "adl",
   totalScore: 126,
   showTotal: true,
-
+  fixedBottomBar: true,
+  
   tabs: {
     overview:
       "FIMはADLの介助量を18項目で評価する尺度です。",
