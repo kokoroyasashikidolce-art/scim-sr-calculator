@@ -31,8 +31,8 @@ const homeCards = [
   },
   {
     id: "copy-result",
-    title: "結果コピー",
-    description: "カルテ貼り付け用にコピー",
+    title: "コピー履歴",
+    description: "最近コピーした結果を確認",
     icon: "📄",
   },
   {
@@ -52,7 +52,6 @@ const homeCards = [
 export default function HomeDashboard({ onSelectMenu }) {
   return (
     <section className="home-dashboard">
-      <h2>リハ評価スコア</h2>
       <p className="home-lead">
         評価スコアの計算、概要確認、豆知識をまとめて使えます。
       </p>

@@ -21,6 +21,7 @@ import HomeDashboard from "./components/HomeDashboard";
 import ScaleList from "./components/ScaleList.jsx";
 
 import AppHeader from "./components/AppHeader";
+import CopyHistory from "./components/CopyHistory";
 
 export default function App() {
   const scimSrScale = scales.find(
@@ -282,6 +283,16 @@ return (
       title="評価一覧"
       onBack={() => setCurrentMenu("home")}
     />
+    {currentMenu === "copy-result" && (
+  <>
+    <AppHeader
+      title="コピー履歴"
+      onBack={() => setCurrentMenu("home")}
+    />
+
+    <CopyHistory />
+  </>
+)}
 
 
     <ScaleList
