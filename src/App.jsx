@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import "./App.css";
 
@@ -35,15 +35,12 @@ export default function App() {
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
   const [previousMenu, setPreviousMenu] = useState("scale-list");
-  const [scrollPositions, setScrollPositions] = useState({});
+  const scrollPositionsRef = useRef({});
   const [pendingScrollY, setPendingScrollY] = useState(null);
   const saveCurrentScroll = (menuName) => {
-  setScrollPositions((prev) => ({
-    ...prev,
-    [menuName]: window.scrollY,
-  }));
+  scrollPositionsRef.current[menuName] = window.scrollY;
 };
-  const FAVORITES_KEY = "rehab-score-favorites";
+ const FAVORITES_KEY = "rehab-score-favorites";
  const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   const saved = localStorage.getItem(FAVORITES_KEY);
   return saved ? JSON.parse(saved) : [];
@@ -422,7 +419,7 @@ return (
     <AppHeader
   title={selectedScale.shortTitle || selectedScale.title}
   onBack={() => {
-  setPendingScrollY(scrollPositions[previousMenu] ?? 0);
+  setPendingScrollY(scrollPositionsRef.current[previousMenu] ?? 0);
   setSelectedScaleId(null);
   setCurrentMenu(previousMenu);
 }}
