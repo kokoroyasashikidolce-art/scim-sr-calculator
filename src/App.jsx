@@ -273,13 +273,30 @@ return (
         <HomeDashboard onSelectMenu={setCurrentMenu} />
       )}
 
-      {currentMenu === "scale-list" && !selectedScale && (
-        <ScaleList
-        scales={scales}
-        onSelectScale={setSelectedScaleId}
-       onBackHome={() => setCurrentMenu("home")}
-        />
-      )}
+      {currentMenu === "scale-list" && (
+  <>
+    <div className="scale-fixed-header">
+      <button
+        className="back-button"
+        onClick={() => {
+          setCurrentMenu("home");
+        }}
+      >
+        ←
+      </button>
+
+      <div className="scale-header-title">
+        評価一覧
+      </div>
+    </div>
+
+    <ScaleList
+      onSelectScale={(scaleId) => {
+        setSelectedScaleId(scaleId);
+      }}
+    />
+  </>
+)}
       
       {selectedScale && (
   <>
@@ -301,7 +318,7 @@ return (
 
     <Tabs
       tabs={[
-        
+
              {
   label: "計算",
   content:
