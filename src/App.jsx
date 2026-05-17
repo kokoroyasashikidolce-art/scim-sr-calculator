@@ -24,6 +24,7 @@ import AppHeader from "./components/AppHeader";
 import CopyHistory from "./components/CopyHistory";
 import FavoriteList from "./components/FavoriteList";
 import RecentList from "./components/RecentList";
+import SearchPage from "./components/SearchPage";
 
 export default function App() {
   const scimSrScale = scales.find(
@@ -410,6 +411,27 @@ return (
   setCurrentMenu("scale-detail");
   window.scrollTo(0, 0);
 }}
+    />
+  </>
+)}
+
+{currentMenu === "search" && (
+  <>
+    <AppHeader
+      title="検索"
+      onBack={() => setCurrentMenu("home")}
+    />
+
+    <SearchPage
+      scales={scales}
+      onSelectScale={(scaleId) => {
+        setSelectedScaleId(scaleId);
+        addRecentScale(scaleId);
+        setPreviousMenu("search");
+        saveCurrentScroll("search");
+        setCurrentMenu("scale-detail");
+        window.scrollTo(0, 0);
+      }}
     />
   </>
 )}
