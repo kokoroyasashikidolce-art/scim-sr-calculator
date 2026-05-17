@@ -23,6 +23,7 @@ import ScaleList from "./components/ScaleList.jsx";
 import AppHeader from "./components/AppHeader";
 import CopyHistory from "./components/CopyHistory";
 import FavoriteList from "./components/FavoriteList";
+import RecentList from "./components/RecentList";
 
 export default function App() {
   const scimSrScale = scales.find(
@@ -39,7 +40,6 @@ export default function App() {
   const saved = localStorage.getItem(FAVORITES_KEY);
   return saved ? JSON.parse(saved) : [];
 });
-
 const toggleFavorite = (scaleId) => {
   setFavoriteScaleIds((prev) => {
     const next = prev.includes(scaleId)
@@ -47,6 +47,25 @@ const toggleFavorite = (scaleId) => {
        : [scaleId, ...prev];
 
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
+    return next;
+  });
+};
+
+const RECENT_KEY = "rehab-score-recent";
+
+const [recentScaleIds, setRecentScaleIds] = useState(() => {
+  const saved = localStorage.getItem(RECENT_KEY);
+  return saved ? JSON.parse(saved) : [];
+});
+
+const addRecentScale = (scaleId) => {
+  setRecentScaleIds((prev) => {
+    const next = [
+      scaleId,
+      ...prev.filter((id) => id !== scaleId),
+    ].slice(0, 20);
+
+    localStorage.setItem(RECENT_KEY, JSON.stringify(next));
     return next;
   });
 };
@@ -305,9 +324,10 @@ return (
     <ScaleList
       scales={scales}
       onSelectScale={(scaleId) => {
-        setSelectedScaleId(scaleId);
-        setCurrentMenu("scale-detail");
-        window.scrollTo(0, 0);
+         setSelectedScaleId(scaleId);
+         addRecentScale(scaleId);
+         setCurrentMenu("scale-detail");
+         window.scrollTo(0, 0);
       }}
       onBackHome={() => setCurrentMenu("home")}
     />
@@ -337,6 +357,26 @@ return (
       favoriteScaleIds={favoriteScaleIds}
       onSelectScale={(scaleId) => {
         setSelectedScaleId(scaleId);
+        addRecentScale(scaleId);
+        setCurrentMenu("scale-detail");
+        window.scrollTo(0, 0);
+      }}
+    />
+  </>
+)}
+{currentMenu === "history" && (
+  <>
+    <AppHeader
+      title="履歴"
+      onBack={() => setCurrentMenu("home")}
+    />
+
+    <RecentList
+      scales={scales}
+      recentScaleIds={recentScaleIds}
+      onSelectScale={(scaleId) => {
+        setSelectedScaleId(scaleId);
+        addRecentScale(scaleId);
         setCurrentMenu("scale-detail");
         window.scrollTo(0, 0);
       }}
