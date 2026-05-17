@@ -158,10 +158,12 @@ useEffect(() => {
 useEffect(() => {
   if (pendingScrollY === null) return;
 
-  requestAnimationFrame(() => {
+  const timer = setTimeout(() => {
     window.scrollTo(0, pendingScrollY);
     setPendingScrollY(null);
-  });
+  }, 50);
+
+  return () => clearTimeout(timer);
 }, [currentMenu, pendingScrollY]);
 
 useEffect(() => {
@@ -342,7 +344,7 @@ addRecentScale(scaleId);
 setPreviousMenu("scale-list");
 setScrollPositions((prev) => ({
   ...prev,
-  scaleList: window.scrollY,
+  "scale-list": window.scrollY,
 }));
 setCurrentMenu("scale-detail");
 window.scrollTo(0, 0);
@@ -403,7 +405,7 @@ window.scrollTo(0, 0);
   setPreviousMenu("history");
   setScrollPositions((prev) => ({
   ...prev,
-  favorites: window.scrollY,
+  history: window.scrollY,
 }));
   setCurrentMenu("scale-detail");
   window.scrollTo(0, 0);
@@ -417,12 +419,7 @@ window.scrollTo(0, 0);
     <AppHeader
   title={selectedScale.shortTitle || selectedScale.title}
   onBack={() => {
-  const key =
-    previousMenu === "scale-list"
-      ? "scaleList"
-      : previousMenu;
-
-  setPendingScrollY(scrollPositions[key] ?? 0);
+  setPendingScrollY(scrollPositions[previousMenu] ?? 0);
   setSelectedScaleId(null);
   setCurrentMenu(previousMenu);
 }}
