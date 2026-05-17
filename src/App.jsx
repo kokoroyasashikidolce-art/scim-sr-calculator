@@ -282,18 +282,26 @@ return (
       )}
       
       {selectedScale && (
-        <>
-          <button
-            onClick={() => {
-              setSelectedScaleId(null);
-              setCurrentMenu("scale-list");    
-      }}
-          >
-           評価一覧へ戻る
-          </button>
+  <>
+    <div className="scale-fixed-header">
+      <button
+        className="back-button"
+        onClick={() => {
+          setSelectedScaleId(null);
+          setCurrentMenu("scale-list");
+        }}
+      >
+        ←
+      </button>
 
-          <Tabs
-            tabs={[
+      <div className="scale-header-title">
+        {selectedScale.shortTitle || selectedScale.title}
+      </div>
+    </div>
+
+    <Tabs
+      tabs={[
+        
              {
   label: "計算",
   content:
