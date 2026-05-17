@@ -415,6 +415,17 @@ button {
 
   font-size: 22px;
   font-weight: 700;
+  .back-button,
+.favorite-button {
+  color: var(--header-icon-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
+}
 }
 
 .scale-header-title {
@@ -553,4 +564,26 @@ button {
 .favorite-button {
   font-family: Arial, sans-serif;
   line-height: 1;
+}
+
+:root {
+  --header-icon-color: #111827;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-icon-color: #ffffff;
+  }
+}
+
+.back-button,
+.favorite-button {
+  color: var(--header-icon-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
 }

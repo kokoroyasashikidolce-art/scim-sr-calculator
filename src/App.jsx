@@ -471,7 +471,8 @@ return (
   width="26"
   height="26"
   viewBox="0 0 24 24"
-  fill={favoriteScaleIds.includes(selectedScale.id) ? "currentColor" : "none"}
+  fill={favoriteScaleIds.includes(selectedScale.id) 
+           ? "currentColor" : "none"}
   stroke="currentColor"
   strokeWidth="2"
   strokeLinecap="round"
