@@ -483,3 +483,11 @@ button {
   background: transparent;
   font-size: 26px;
 }
+.search-input {
+  width: 100%;
+  min-height: 48px;
+  font-size: 16px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
