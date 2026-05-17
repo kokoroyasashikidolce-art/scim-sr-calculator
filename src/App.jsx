@@ -288,7 +288,8 @@ return (
   scales={scales}
   onSelectScale={(scaleId) => {
     setSelectedScaleId(scaleId);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    setCurrentMenu("scale-detail");
+    window.scrollTo(0, 0);
   }}
   onBackHome={() => setCurrentMenu("home")}
 />
@@ -296,7 +297,7 @@ return (
   </>
 )}
       
- {selectedScale && (
+ {currentMenu === "scale-detail" && selectedScale && (
   <>
     <AppHeader
   title={selectedScale.shortTitle || selectedScale.title}
