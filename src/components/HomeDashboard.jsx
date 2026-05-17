@@ -8,19 +8,19 @@ const homeCards = [
   {
     id: "search",
     title: "検索",
-    description: "評価検索",
+    description: "評価を検索",
     icon: "🔍",
   },
   {
     id: "favorites",
     title: "お気に入り",
-    description: "よく使う評価",
+    description: "よく使うもの",
     icon: "⭐",
   },
   {
     id: "history",
     title: "履歴",
-    description: "最近使用",
+    description: "最近の閲覧",
     icon: "🕘",
   },
   {
@@ -32,19 +32,19 @@ const homeCards = [
   {
     id: "copy-result",
     title: "コピー履歴",
-    description: "結果保存",
+    description: "結果コピーの履歴",
     icon: "📄",
   },
   {
     id: "updates",
-    title: "更新情報",
-    description: "更新・注意事項",
+    title: "情報",
+    description: "お知らせ等",
     icon: "📢",
   },
   {
     id: "settings",
     title: "設定",
-    description: "表示と管理",
+    description: "表示や管理",
     icon: "⚙️",
   },
 ];
