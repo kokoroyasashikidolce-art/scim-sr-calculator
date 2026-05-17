@@ -5,9 +5,24 @@ export default function AppHeader({
 }) {
   return (
     <div className="scale-fixed-header">
-      <button className="back-button" onClick={onBack}>
-  <span aria-hidden="true">&larr;</span>
-</button>
+      <button
+        className="back-button"
+        onClick={onBack}
+        aria-label="戻る"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
 
       <div className="scale-header-title">
         {title}

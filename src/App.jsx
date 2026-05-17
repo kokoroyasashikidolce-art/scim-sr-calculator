@@ -455,10 +455,19 @@ return (
       onClick={() => toggleFavorite(selectedScale.id)}
       aria-label="お気に入り"
     >
-     <span aria-hidden="true">
-  {favoriteScaleIds.includes(selectedScale.id) ? "\u2605" : "\u2606"}
-</span>
-    </button>
+    <svg
+  width="26"
+  height="26"
+  viewBox="0 0 24 24"
+  fill={favoriteScaleIds.includes(selectedScale.id) ? "currentColor" : "none"}
+  stroke="currentColor"
+  strokeWidth="2"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+>
+  <path d="M12 2.5l2.9 6 6.6.9-4.8 4.7 1.1 6.6L12 17.6l-5.8 3.1 1.1-6.6-4.8-4.7 6.6-.9L12 2.5z" />
+</svg>
+ </button>
   }
 />
 
