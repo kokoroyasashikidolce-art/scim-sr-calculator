@@ -36,6 +36,7 @@ export default function App() {
   const [selectedScaleId, setSelectedScaleId] = useState(null);
   const [previousMenu, setPreviousMenu] = useState("scale-list");
   const [scrollPositions, setScrollPositions] = useState({});
+  const [pendingScrollY, setPendingScrollY] = useState(null);
   const FAVORITES_KEY = "rehab-score-favorites";
  const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   const saved = localStorage.getItem(FAVORITES_KEY);
@@ -132,15 +133,17 @@ const [mobility, setMobility] = useState(
   }
 );
 
+
+
   useEffect(() => {
-    const timer = setTimeout(() => {
+  const timer = setTimeout(() => {
     setLoading(false);
   }, 1000);
 
   return () => clearTimeout(timer);
 }, []);
 
-  useEffect(() => {
+useEffect(() => {
   const data = {
     scores,
     respiration,
@@ -149,10 +152,19 @@ const [mobility, setMobility] = useState(
     mobility,
   };
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }, [scores, respiration, bladder, bowel, mobility]);
 
-  useEffect(() => {
+useEffect(() => {
+  if (pendingScrollY === null) return;
+
+  requestAnimationFrame(() => {
+    window.scrollTo(0, pendingScrollY);
+    setPendingScrollY(null);
+  });
+}, [currentMenu, pendingScrollY]);
+
+useEffect(() => {
   const handleBeforeInstallPrompt = (event) => {
     event.preventDefault();
     setInstallPrompt(event);
@@ -405,17 +417,14 @@ window.scrollTo(0, 0);
     <AppHeader
   title={selectedScale.shortTitle || selectedScale.title}
   onBack={() => {
+  const key =
+    previousMenu === "scale-list"
+      ? "scaleList"
+      : previousMenu;
+
+  setPendingScrollY(scrollPositions[key] ?? 0);
   setSelectedScaleId(null);
   setCurrentMenu(previousMenu);
-
-  setTimeout(() => {
-    const key =
-      previousMenu === "scale-list"
-        ? "scaleList"
-        : previousMenu;
-
-    window.scrollTo(0, scrollPositions[key] ?? 0);
-  }, 0);
 }}
   rightContent={
     <button
