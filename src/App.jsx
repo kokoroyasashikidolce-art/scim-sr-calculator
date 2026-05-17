@@ -33,9 +33,9 @@ export default function App() {
   const simpleDomains = scimSrScale.domains;
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
-  const FAVORITES_KEY = "rehab-score-favorites";
 
-const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
+  const FAVORITES_KEY = "rehab-score-favorites";
+ const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   const saved = localStorage.getItem(FAVORITES_KEY);
   return saved ? JSON.parse(saved) : [];
 });
@@ -50,6 +50,7 @@ const toggleFavorite = (scaleId) => {
     return next;
   });
 };
+
   const selectedScale = scales.find(
     (scale) => scale.id === selectedScaleId
   );
@@ -58,24 +59,6 @@ const toggleFavorite = (scaleId) => {
   const STORAGE_KEY = "scim-sr-calculator-data";
   const getSavedData = () => {
   const saved = localStorage.getItem(STORAGE_KEY);
-
-  const FAVORITES_KEY = "rehab-score-favorites";
-
-const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
-  const saved = localStorage.getItem(FAVORITES_KEY);
-  return saved ? JSON.parse(saved) : [];
-});
-
-  const toggleFavorite = (scaleId) => {
-  setFavoriteScaleIds((prev) => {
-    const next = prev.includes(scaleId)
-      ? prev.filter((id) => id !== scaleId)
-       : [scaleId, ...prev];
-
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
-    return next;
-  });
-};
 
    if (!saved) return null; 
 
