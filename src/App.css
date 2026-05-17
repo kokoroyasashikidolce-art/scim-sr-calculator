@@ -491,3 +491,61 @@ button {
   border: 1px solid #e5e7eb;
   border-radius: 14px;
 }
+/* ===== トップ画面 ===== */
+
+.home-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: clamp(8px, 2vw, 14px);
+
+  margin-top: 12px;
+}
+
+.home-card {
+  min-height:
+    clamp(78px, 12vh, 108px);
+
+  padding:
+    clamp(10px, 2vw, 14px);
+
+  border-radius: 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  gap: 6px;
+}
+
+.home-card h3 {
+  margin: 0;
+
+  font-size:
+    clamp(15px, 2vw, 18px);
+}
+
+.home-card p {
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.2;
+}
+
+/* PC */
+
+@media (min-width: 900px) {
+  .home-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+}
