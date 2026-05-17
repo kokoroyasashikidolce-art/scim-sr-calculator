@@ -11,7 +11,7 @@ export default defineConfig({
 
       manifest: {
         name: "リハすこ",
-        short_name: "リハすこR",
+        short_name: "リハすこ",
         description: "リハビリテーション領域の評価スコア集約・計算アプリ",
         theme_color: "#f97316",
         background_color: "#ffffff",
