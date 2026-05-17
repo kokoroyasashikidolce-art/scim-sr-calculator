@@ -3,9 +3,11 @@ export default function FavoriteList({
   favoriteScaleIds,
   onSelectScale,
 }) {
-  const favoriteScales = scales.filter((scale) =>
-    favoriteScaleIds.includes(scale.id)
-  );
+  const favoriteScales = favoriteScaleIds
+  .map((favoriteId) =>
+    scales.find((scale) => scale.id === favoriteId)
+  )
+  .filter(Boolean)
 
   if (favoriteScales.length === 0) {
     return (

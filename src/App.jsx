@@ -44,7 +44,7 @@ const toggleFavorite = (scaleId) => {
   setFavoriteScaleIds((prev) => {
     const next = prev.includes(scaleId)
       ? prev.filter((id) => id !== scaleId)
-      : [...prev, scaleId];
+       : [scaleId, ...prev];
 
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
     return next;
@@ -70,7 +70,7 @@ const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   setFavoriteScaleIds((prev) => {
     const next = prev.includes(scaleId)
       ? prev.filter((id) => id !== scaleId)
-      : [...prev, scaleId];
+       : [scaleId, ...prev];
 
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
     return next;
