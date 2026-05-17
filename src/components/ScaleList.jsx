@@ -1,14 +1,8 @@
 import { categories } from "../data/categories";
 
-export default function ScaleList({ scales, onSelectScale, onBackHome }) {
+export default function ScaleList({ scales, onSelectScale }) {
   return (
     <section className="card">
-      
-      <h2>評価一覧</h2>
-      <p className="description">
-        カテゴリ別に評価スコアを表示します。
-      </p>
-
       {categories.map((category) => {
         const categoryScales = scales.filter(
           (scale) => scale.category === category.id
@@ -21,6 +15,7 @@ export default function ScaleList({ scales, onSelectScale, onBackHome }) {
             <h3>
               <span>{category.icon}</span> {category.title}
             </h3>
+
             <p className="description">{category.description}</p>
 
             <div className="scale-list">
