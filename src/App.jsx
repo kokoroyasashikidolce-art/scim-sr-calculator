@@ -318,8 +318,8 @@ if (loading) {
     <div className="splash-screen">
       <div className="splash-content">
         <img src="/icon-512.png" alt="SCIM-SR" className="splash-logo" />
-        <h1>リハ評価スコア</h1>
-        <p>Rehabilitation Assessment Tools</p>
+        <h1>リハすこ</h1>
+        <p>Rehabilitation Score Platform</p>
       </div>
     </div>
   );
@@ -329,10 +329,10 @@ return (
   <>
     <main className="container">
       <h1>
-        リハ評価スコア
+        リハすこ
         <br />
         <span style={{ fontSize: "16px", fontWeight: "normal" }}>
-          Rehabilitation Assessment Tools
+          Rehabilitation Score Platform
         </span>
       </h1>
 

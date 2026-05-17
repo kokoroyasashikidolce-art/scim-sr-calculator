@@ -10,10 +10,10 @@ export default defineConfig({
       injectRegister: "auto",
 
       manifest: {
-        name: "SCIM-SR Calculator",
-        short_name: "SCIM-SR",
-        description: "SCIM-SR scoring calculator",
-        theme_color: "#ffffff",
+        name: "リハすこ",
+        short_name: "リハすこR",
+        description: "リハビリテーション領域の評価スコア集約・計算アプリ",
+        theme_color: "#f97316",
         background_color: "#ffffff",
         display: "standalone",
         start_url: "/",

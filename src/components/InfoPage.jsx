@@ -3,9 +3,8 @@ export default function InfoPage() {
     <>
       <section className="card">
         <h2>アプリ情報</h2>
-        <p>
-          リハビリテーション領域でよく使う評価スコアを、計算・概要確認・豆知識とあわせて使えるPWAアプリです。
-        </p>
+        <p>アプリ名：リハすこ</p>
+        <p>リハビリテーション領域の評価スコア集約・計算プラットフォーム</p>
         <p>バージョン：v0.1.0</p>
       </section>
 
