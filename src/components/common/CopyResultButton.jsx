@@ -20,7 +20,8 @@ export default function CopyResultButton({ title, text }) {
 
     localStorage.setItem(
       COPY_HISTORY_KEY,
-      JSON.stringify([newItem, ...history].slice(0, 20))
+      JSON.stringify(
+  [newItem, ...history].slice(0, 100))
     );
 
     setCopied(true);

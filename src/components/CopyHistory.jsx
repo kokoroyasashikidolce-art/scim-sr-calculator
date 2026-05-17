@@ -22,7 +22,24 @@ const handleCopyAgain = async (event, text) => {
   }
 
   return (
-    
+  <>
+    <section className="card">
+      <h3>コピー履歴について</h3>
+
+      <p>
+        コピー履歴は最新100件まで保存されます。
+      </p>
+
+      <p>
+        100件を超えると古い履歴から自動削除されます。
+      </p>
+
+      <p>
+        ブラウザデータ削除、PWA削除、端末変更などで
+        履歴が消える場合があります。
+      </p>
+    </section>
+
     <section className="copy-history-list">
       {histories.map((item) => {
         const isOpen = openedId === item.id;
@@ -55,5 +72,6 @@ const handleCopyAgain = async (event, text) => {
  
       })}
     </section>
-  );
+  </>
+);
 }
