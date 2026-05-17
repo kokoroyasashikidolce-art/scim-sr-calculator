@@ -22,6 +22,7 @@ import ScaleList from "./components/ScaleList.jsx";
 
 import AppHeader from "./components/AppHeader";
 import CopyHistory from "./components/CopyHistory";
+import FavoriteList from "./components/FavoriteList";
 
 export default function App() {
   const scimSrScale = scales.find(
@@ -39,7 +40,25 @@ export default function App() {
   const [showIosInstallGuide, setShowIosInstallGuide] = useState(false);
   const STORAGE_KEY = "scim-sr-calculator-data";
   const getSavedData = () => {
-    const saved = localStorage.getItem(STORAGE_KEY);
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  const FAVORITES_KEY = "rehab-score-favorites";
+
+const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
+  const saved = localStorage.getItem(FAVORITES_KEY);
+  return saved ? JSON.parse(saved) : [];
+});
+
+  const toggleFavorite = (scaleId) => {
+  setFavoriteScaleIds((prev) => {
+    const next = prev.includes(scaleId)
+      ? prev.filter((id) => id !== scaleId)
+      : [...prev, scaleId];
+
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
+    return next;
+  });
+};
 
    if (!saved) return null; 
 
@@ -306,6 +325,25 @@ return (
   </>
 )}
 
+{currentMenu === "favorites" && (
+  <>
+    <AppHeader
+      title="お気に入り"
+      onBack={() => setCurrentMenu("home")}
+    />
+
+    <FavoriteList
+      scales={scales}
+      favoriteScaleIds={favoriteScaleIds}
+      onSelectScale={(scaleId) => {
+        setSelectedScaleId(scaleId);
+        setCurrentMenu("scale-detail");
+        window.scrollTo(0, 0);
+      }}
+    />
+  </>
+)}
+
  {currentMenu === "scale-detail" && selectedScale && (
   <>
     <AppHeader
@@ -314,6 +352,15 @@ return (
     setSelectedScaleId(null);
     setCurrentMenu("scale-list");
   }}
+  rightContent={
+    <button
+      className="favorite-button"
+      onClick={() => toggleFavorite(selectedScale.id)}
+      aria-label="お気に入り"
+    >
+      {favoriteScaleIds.includes(selectedScale.id) ? "★" : "☆"}
+    </button>
+  }
 />
 
     <Tabs

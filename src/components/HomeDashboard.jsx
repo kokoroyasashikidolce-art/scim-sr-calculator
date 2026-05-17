@@ -14,7 +14,7 @@ const homeCards = [
   {
     id: "favorites",
     title: "お気に入り",
-    description: "よく使う評価をすぐ開く",
+    description: "よく使う評価を登録",
     icon: "⭐",
   },
   {
