@@ -341,8 +341,24 @@ return (
 
 
 
-              { label: "概要", content: <OverviewTab /> },
-              { label: "豆知識", content: <TipsTab /> },
+             {
+  label: "概要",
+  content: (
+    <section className="card">
+      <h2>概要</h2>
+      <p>{selectedScale.tabs?.overview ?? "概要は未登録です。"}</p>
+    </section>
+  ),
+},
+{
+  label: "豆知識",
+  content: (
+    <section className="card">
+      <h2>豆知識</h2>
+      <p>{selectedScale.tabs?.tips ?? "豆知識は未登録です。"}</p>
+    </section>
+  ),
+},
               
             ]}
           />
