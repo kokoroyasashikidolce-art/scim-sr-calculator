@@ -273,6 +273,7 @@ return (
         <HomeDashboard onSelectMenu={setCurrentMenu} />
       )}
 
+
       {currentMenu === "scale-list" && (
   <>
     <div className="scale-fixed-header">
@@ -290,10 +291,12 @@ return (
       </div>
     </div>
 
+
     <ScaleList
-      onSelectScale={(scaleId) => {
-        setSelectedScaleId(scaleId);
-      }}
+      scales={scales}
+      onSelectScale={setSelectedScaleId}
+      onBackHome={() => setCurrentMenu("home")}
+      
     />
   </>
 )}
