@@ -285,11 +285,14 @@ return (
 
 
     <ScaleList
-      scales={scales}
-      onSelectScale={setSelectedScaleId}
-      onBackHome={() => setCurrentMenu("home")}
-      
-    />
+  scales={scales}
+  onSelectScale={(scaleId) => {
+    setSelectedScaleId(scaleId);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }}
+  onBackHome={() => setCurrentMenu("home")}
+/>
+
   </>
 )}
       
