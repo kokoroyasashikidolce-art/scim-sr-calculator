@@ -2,6 +2,8 @@ export const biScale = {
   id: "bi",
   title: "Barthel Index",
   shortTitle: "BI",
+  headerTitle:
+  "BI (Barthel Index) : バーセルインデックス",
   category: "adl",
   totalScore: 100,
   showTotal: true,

@@ -394,7 +394,7 @@ button {
   z-index: 80;
 
   display: grid;
-  grid-template-columns: 44px 1fr 44px;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
   gap: 8px;
 
@@ -418,9 +418,14 @@ button {
 }
 
 .scale-header-title {
-  font-size: 18px;
+  min-width: 0;
+  font-size: 14px;
   font-weight: 800;
-  text-align: center;  
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .copy-history-list {

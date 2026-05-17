@@ -417,7 +417,11 @@ return (
  {currentMenu === "scale-detail" && selectedScale && (
   <>
     <AppHeader
-  title={selectedScale.shortTitle || selectedScale.title}
+  title={
+  selectedScale.headerTitle ||
+  selectedScale.shortTitle ||
+  selectedScale.title
+}
   onBack={() => {
   setPendingScrollY(scrollPositionsRef.current[previousMenu] ?? 0);
   setSelectedScaleId(null);

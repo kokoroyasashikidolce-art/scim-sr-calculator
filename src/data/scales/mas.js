@@ -29,6 +29,8 @@ export const masScale = {
   id: "mas",
   title: "Modified Ashworth Scale",
   shortTitle: "MAS",
+  headerTitle:
+  "MAS (Modified Ashworth Scale) : 修正アシュワーススケール",
   category: "stroke",
   showTotal: false,
   scoreUnit: "",

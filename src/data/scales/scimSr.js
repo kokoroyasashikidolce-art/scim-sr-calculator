@@ -4,7 +4,8 @@ export const scimSrScale = {
   id: "scim-sr",
   title: "SCIM-SR",
   shortTitle: "SCIM-SR",
-
+  headerTitle:
+  "SCIM-SR (Spinal Cord Independence Measure – self report) : 自己報告形式の脊髄障害自立度評価法",
   totalScore: 100,
   showTotal: true,
 
@@ -20,3 +21,4 @@ export const scimSrScale = {
 
   domains: simpleDomains,
 };
+
