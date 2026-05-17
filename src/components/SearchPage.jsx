@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { categories } from "../data/categories";
 
 export default function SearchPage({ scales, onSelectScale }) {
   const [query, setQuery] = useState("");
@@ -8,15 +9,21 @@ export default function SearchPage({ scales, onSelectScale }) {
   const filteredScales = scales.filter((scale) => {
     if (!normalizedQuery) return true;
 
-    const searchText = [
-      scale.id,
-      scale.title,
-      scale.shortTitle,
-      scale.headerTitle,
-      scale.category,
-      scale.tabs?.overview,
-      scale.tabs?.tips,
-    ]
+    const category = categories.find(
+  (category) => category.id === scale.category
+);
+
+const searchText = [
+  scale.id,
+  scale.title,
+  scale.shortTitle,
+  scale.headerTitle,
+  scale.category,
+  category?.title,
+  category?.description,
+  scale.tabs?.overview,
+  scale.tabs?.tips,
+]
       .filter(Boolean)
       .join(" ")
       .toLowerCase();
