@@ -26,7 +26,7 @@ const homeCards = [
   {
     id: "sets",
     title: "評価セット",
-    description: "疾患・場面別",
+    description: "疾患/場面別",
     icon: "🧩",
   },
   {
@@ -36,9 +36,9 @@ const homeCards = [
     icon: "📄",
   },
   {
-    id: "updates",
+    id: "info",
     title: "情報",
-    description: "お知らせ等",
+    description: "更新/注意事項",
     icon: "📢",
   },
   {
