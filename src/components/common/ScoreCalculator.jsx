@@ -77,7 +77,9 @@ export default function ScoreCalculator({ scale }) {
 
       const scoreText = selectedOption?.score ?? scores[item.id];
 
-      return `${item.title || item.name}：${scoreText}点`;
+      return `${item.title || item.name}：${scoreText}${
+  scale.scoreUnit ?? "点"
+}`;
     })
 );
 

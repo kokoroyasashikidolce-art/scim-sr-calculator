@@ -31,7 +31,7 @@ export default function ScoreSelectItem({
               key={index}
               value={score}
             >
-              {score}点：{label}
+              {score}{item.scoreUnit ?? "点"}：
             </option>
           );
         })}

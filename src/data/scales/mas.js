@@ -31,6 +31,7 @@ export const masScale = {
   shortTitle: "MAS",
   category: "stroke",
   showTotal: false,
+  scoreUnit: "",
 
   tabs: {
     overview:
