@@ -20,6 +20,8 @@ import HomeDashboard from "./components/HomeDashboard";
 
 import ScaleList from "./components/ScaleList.jsx";
 
+import AppHeader from "./components/AppHeader";
+
 export default function App() {
   const scimSrScale = scales.find(
     (scale) => scale.id === "scim-sr"
@@ -276,20 +278,10 @@ return (
 
       {currentMenu === "scale-list" && (
   <>
-    <div className="scale-fixed-header">
-      <button
-        className="back-button"
-        onClick={() => {
-          setCurrentMenu("home");
-        }}
-      >
-        ←
-      </button>
-
-      <div className="scale-header-title">
-        評価一覧
-      </div>
-    </div>
+    <AppHeader
+      title="評価一覧"
+      onBack={() => setCurrentMenu("home")}
+    />
 
 
     <ScaleList
@@ -301,23 +293,15 @@ return (
   </>
 )}
       
-      {selectedScale && (
+ {selectedScale && (
   <>
-    <div className="scale-fixed-header">
-      <button
-        className="back-button"
-        onClick={() => {
-          setSelectedScaleId(null);
-          setCurrentMenu("scale-list");
-        }}
-      >
-        ←
-      </button>
-
-      <div className="scale-header-title">
-        {selectedScale.shortTitle || selectedScale.title}
-      </div>
-    </div>
+    <AppHeader
+  title={selectedScale.shortTitle || selectedScale.title}
+  onBack={() => {
+    setSelectedScaleId(null);
+    setCurrentMenu("scale-list");
+  }}
+/>
 
     <Tabs
       tabs={[

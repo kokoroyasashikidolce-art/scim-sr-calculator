@@ -3,8 +3,7 @@ import { categories } from "../data/categories";
 export default function ScaleList({ scales, onSelectScale, onBackHome }) {
   return (
     <section className="card">
-      <button onClick={onBackHome}>ホームへ戻る</button>
-
+      
       <h2>評価一覧</h2>
       <p className="description">
         カテゴリ別に評価スコアを表示します。
