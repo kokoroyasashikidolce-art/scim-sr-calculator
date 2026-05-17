@@ -37,6 +37,12 @@ export default function App() {
   const [previousMenu, setPreviousMenu] = useState("scale-list");
   const [scrollPositions, setScrollPositions] = useState({});
   const [pendingScrollY, setPendingScrollY] = useState(null);
+  const saveCurrentScroll = (menuName) => {
+  setScrollPositions((prev) => ({
+    ...prev,
+    [menuName]: window.scrollY,
+  }));
+};
   const FAVORITES_KEY = "rehab-score-favorites";
  const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   const saved = localStorage.getItem(FAVORITES_KEY);
@@ -159,9 +165,15 @@ useEffect(() => {
   if (pendingScrollY === null) return;
 
   const timer = setTimeout(() => {
-    window.scrollTo(0, pendingScrollY);
-    setPendingScrollY(null);
-  }, 50);
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: pendingScrollY,
+        behavior: "instant",
+      });
+
+      setPendingScrollY(null);
+    });
+  }, 120);
 
   return () => clearTimeout(timer);
 }, [currentMenu, pendingScrollY]);
@@ -340,14 +352,11 @@ return (
       scales={scales}
       onSelectScale={(scaleId) => {
          setSelectedScaleId(scaleId);
-addRecentScale(scaleId);
-setPreviousMenu("scale-list");
-setScrollPositions((prev) => ({
-  ...prev,
-  "scale-list": window.scrollY,
-}));
-setCurrentMenu("scale-detail");
-window.scrollTo(0, 0);
+         addRecentScale(scaleId);
+         setPreviousMenu("scale-list");
+         saveCurrentScroll("scale-list");
+         setCurrentMenu("scale-detail");
+         window.scrollTo(0, 0);
       }}
       onBackHome={() => setCurrentMenu("home")}
     />
@@ -379,10 +388,7 @@ window.scrollTo(0, 0);
   setSelectedScaleId(scaleId);
   addRecentScale(scaleId);
   setPreviousMenu("favorites");
-  setScrollPositions((prev) => ({
-  ...prev,
-  favorites: window.scrollY,
-}));
+  saveCurrentScroll("favorites");
   setCurrentMenu("scale-detail");
   window.scrollTo(0, 0);
 }}
@@ -403,10 +409,7 @@ window.scrollTo(0, 0);
   setSelectedScaleId(scaleId);
   addRecentScale(scaleId);
   setPreviousMenu("history");
-  setScrollPositions((prev) => ({
-  ...prev,
-  history: window.scrollY,
-}));
+  saveCurrentScroll("history");
   setCurrentMenu("scale-detail");
   window.scrollTo(0, 0);
 }}
