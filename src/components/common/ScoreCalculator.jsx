@@ -202,7 +202,10 @@ if (!item.options) {
 return (
   <ScoreSelectItem
     key={item.id}
-    item={item}
+    item={{
+      ...item,
+      scoreUnit: scale.scoreUnit ?? "点",
+    }}
     value={scores[item.id]}
     onChange={(value) => handleChange(item.id, value)}
   />
