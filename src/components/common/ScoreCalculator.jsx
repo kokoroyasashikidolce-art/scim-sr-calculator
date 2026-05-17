@@ -1,10 +1,25 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ScoreSelectItem from "./ScoreSelectItem";
 import CopyResultButton from "./CopyResultButton";
 import FimLocomotionItem from "../special/FimLocomotionItem";
 
 export default function ScoreCalculator({ scale }) {
   const initialScores = {};
+  const STORAGE_KEY = `rehab-score-data-${scale.id}`;
+
+const getSavedData = () => {
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if (!saved) return null;
+
+  try {
+    return JSON.parse(saved);
+  } catch {
+    return null;
+  }
+};
+
+const savedData = getSavedData();
 
   scale.domains.forEach((domain) => {
     domain.items.forEach((item) => {
@@ -14,9 +29,27 @@ export default function ScoreCalculator({ scale }) {
     });
   });
 
-  const [scores, setScores] = useState(initialScores);
+const [scores, setScores] = useState(
+  savedData?.scores ?? initialScores
+);
 
-  const [specialScores, setSpecialScores] = useState({});
+const [specialScores, setSpecialScores] = useState(
+  savedData?.specialScores ?? {}
+);
+
+useEffect(() => {
+  const data = {
+    scores,
+    specialScores,
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data)
+);
+}, [
+    scores,
+    specialScores,
+    STORAGE_KEY
+  ]);
 
   const handleChange = (itemId, value) => {
     setScores((prev) => ({
@@ -62,9 +95,11 @@ export default function ScoreCalculator({ scale }) {
     );
   }, 0);
 
-  const resetScores = () => {
-    setScores(initialScores);
-  };
+ const resetScores = () => {
+  localStorage.removeItem(STORAGE_KEY);
+  setScores(initialScores);
+  setSpecialScores({});
+};
 
   const selectedNormalItems = scale.domains.flatMap((domain) =>
   domain.items
