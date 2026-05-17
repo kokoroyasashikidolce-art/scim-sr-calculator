@@ -549,3 +549,8 @@ button {
       repeat(4, minmax(0, 1fr));
   }
 }
+.back-button,
+.favorite-button {
+  font-family: Arial, sans-serif;
+  line-height: 1;
+}

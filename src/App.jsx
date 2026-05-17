@@ -455,7 +455,9 @@ return (
       onClick={() => toggleFavorite(selectedScale.id)}
       aria-label="お気に入り"
     >
-      {favoriteScaleIds.includes(selectedScale.id) ? "★" : "☆"}
+     <span aria-hidden="true">
+  {favoriteScaleIds.includes(selectedScale.id) ? "\u2605" : "\u2606"}
+</span>
     </button>
   }
 />

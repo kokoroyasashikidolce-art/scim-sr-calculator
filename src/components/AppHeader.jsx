@@ -6,8 +6,8 @@ export default function AppHeader({
   return (
     <div className="scale-fixed-header">
       <button className="back-button" onClick={onBack}>
-        ←
-      </button>
+  <span aria-hidden="true">&larr;</span>
+</button>
 
       <div className="scale-header-title">
         {title}
