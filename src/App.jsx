@@ -33,6 +33,23 @@ export default function App() {
   const simpleDomains = scimSrScale.domains;
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
+  const FAVORITES_KEY = "rehab-score-favorites";
+
+const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
+  const saved = localStorage.getItem(FAVORITES_KEY);
+  return saved ? JSON.parse(saved) : [];
+});
+
+const toggleFavorite = (scaleId) => {
+  setFavoriteScaleIds((prev) => {
+    const next = prev.includes(scaleId)
+      ? prev.filter((id) => id !== scaleId)
+      : [...prev, scaleId];
+
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
+    return next;
+  });
+};
   const selectedScale = scales.find(
     (scale) => scale.id === selectedScaleId
   );
