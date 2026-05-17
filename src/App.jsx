@@ -35,6 +35,7 @@ export default function App() {
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
   const [previousMenu, setPreviousMenu] = useState("scale-list");
+  const [scrollPositions, setScrollPositions] = useState({});
   const FAVORITES_KEY = "rehab-score-favorites";
  const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   const saved = localStorage.getItem(FAVORITES_KEY);
@@ -327,6 +328,10 @@ return (
          setSelectedScaleId(scaleId);
 addRecentScale(scaleId);
 setPreviousMenu("scale-list");
+setScrollPositions((prev) => ({
+  ...prev,
+  scaleList: window.scrollY,
+}));
 setCurrentMenu("scale-detail");
 window.scrollTo(0, 0);
       }}
@@ -360,6 +365,10 @@ window.scrollTo(0, 0);
   setSelectedScaleId(scaleId);
   addRecentScale(scaleId);
   setPreviousMenu("favorites");
+  setScrollPositions((prev) => ({
+  ...prev,
+  favorites: window.scrollY,
+}));
   setCurrentMenu("scale-detail");
   window.scrollTo(0, 0);
 }}
@@ -380,6 +389,10 @@ window.scrollTo(0, 0);
   setSelectedScaleId(scaleId);
   addRecentScale(scaleId);
   setPreviousMenu("history");
+  setScrollPositions((prev) => ({
+  ...prev,
+  favorites: window.scrollY,
+}));
   setCurrentMenu("scale-detail");
   window.scrollTo(0, 0);
 }}
@@ -394,6 +407,15 @@ window.scrollTo(0, 0);
   onBack={() => {
   setSelectedScaleId(null);
   setCurrentMenu(previousMenu);
+
+  setTimeout(() => {
+    const key =
+      previousMenu === "scale-list"
+        ? "scaleList"
+        : previousMenu;
+
+    window.scrollTo(0, scrollPositions[key] ?? 0);
+  }, 0);
 }}
   rightContent={
     <button
