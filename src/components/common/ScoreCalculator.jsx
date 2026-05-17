@@ -160,7 +160,7 @@ ${selectedItemsText || "未選択"}`;
           )}
 
           {domain.items.map((item) => {
-            if (item.type === "special" && item.component === "FimLocomotionItem") {
+           if (item.type === "special" && item.component === "FimLocomotionItem") {
   return (
     <FimLocomotionItem
       key={item.id}
@@ -175,14 +175,26 @@ ${selectedItemsText || "未選択"}`;
   );
 }
 
-            return (
-              <ScoreSelectItem
-                key={item.id}
-                item={item}
-                value={scores[item.id]}
-                onChange={(value) => handleChange(item.id, value)}
-              />
-            );
+if (item.type === "special") {
+  return (
+    <div className="branch-item" key={item.id}>
+      <h3>{item.title}</h3>
+      <p className="description">
+        この項目は特殊分岐形式です。
+      </p>
+    </div>
+  );
+}
+
+return (
+  <ScoreSelectItem
+    key={item.id}
+    item={item}
+    value={scores[item.id]}
+    onChange={(value) => handleChange(item.id, value)}
+  />
+);
+                
           })}
         </section>
       ))}
