@@ -8,6 +8,11 @@ export default function CopyHistory() {
   const saved = localStorage.getItem(COPY_HISTORY_KEY);
   const histories = saved ? JSON.parse(saved) : [];
 
+const handleCopyAgain = async (event, text) => {
+  event.stopPropagation();
+  await navigator.clipboard.writeText(text);
+};  
+
   if (histories.length === 0) {
     return (
       <section className="card">
@@ -17,6 +22,7 @@ export default function CopyHistory() {
   }
 
   return (
+    
     <section className="copy-history-list">
       {histories.map((item) => {
         const isOpen = openedId === item.id;
@@ -24,7 +30,8 @@ export default function CopyHistory() {
         const preview = lines.slice(0, 3).join("\n");
 
         return (
-          <button
+          
+          <div
             key={item.id}
             className="copy-history-card"
             onClick={() => setOpenedId(isOpen ? null : item.id)}
@@ -35,8 +42,17 @@ export default function CopyHistory() {
             </small>
 
             <pre>{isOpen ? item.text : preview}</pre>
-          </button>
-        );
+            {isOpen && (
+  <button
+    className="copy-again-button"
+    onClick={(event) => handleCopyAgain(event, item.text)}
+  >
+    再コピー
+  </button>
+)}
+  </div>
+);
+ 
       })}
     </section>
   );

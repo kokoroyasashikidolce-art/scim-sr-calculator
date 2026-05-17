@@ -458,3 +458,8 @@ button {
   line-height: 1.5;
   color: #333;
 }
+
+.copy-again-button {
+  margin-top: 10px;
+  width: 100%;
+}
