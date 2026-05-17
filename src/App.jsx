@@ -34,7 +34,7 @@ export default function App() {
   const simpleDomains = scimSrScale.domains;
   const [currentMenu, setCurrentMenu] = useState("home");
   const [selectedScaleId, setSelectedScaleId] = useState(null);
-
+  const [previousMenu, setPreviousMenu] = useState("scale-list");
   const FAVORITES_KEY = "rehab-score-favorites";
  const [favoriteScaleIds, setFavoriteScaleIds] = useState(() => {
   const saved = localStorage.getItem(FAVORITES_KEY);
@@ -63,7 +63,7 @@ const addRecentScale = (scaleId) => {
     const next = [
       scaleId,
       ...prev.filter((id) => id !== scaleId),
-    ].slice(0, 20);
+    ].slice(0, 50);
 
     localStorage.setItem(RECENT_KEY, JSON.stringify(next));
     return next;
@@ -325,9 +325,10 @@ return (
       scales={scales}
       onSelectScale={(scaleId) => {
          setSelectedScaleId(scaleId);
-         addRecentScale(scaleId);
-         setCurrentMenu("scale-detail");
-         window.scrollTo(0, 0);
+addRecentScale(scaleId);
+setPreviousMenu("scale-list");
+setCurrentMenu("scale-detail");
+window.scrollTo(0, 0);
       }}
       onBackHome={() => setCurrentMenu("home")}
     />
@@ -356,11 +357,12 @@ return (
       scales={scales}
       favoriteScaleIds={favoriteScaleIds}
       onSelectScale={(scaleId) => {
-        setSelectedScaleId(scaleId);
-        addRecentScale(scaleId);
-        setCurrentMenu("scale-detail");
-        window.scrollTo(0, 0);
-      }}
+  setSelectedScaleId(scaleId);
+  addRecentScale(scaleId);
+  setPreviousMenu("favorites");
+  setCurrentMenu("scale-detail");
+  window.scrollTo(0, 0);
+}}
     />
   </>
 )}
@@ -375,11 +377,12 @@ return (
       scales={scales}
       recentScaleIds={recentScaleIds}
       onSelectScale={(scaleId) => {
-        setSelectedScaleId(scaleId);
-        addRecentScale(scaleId);
-        setCurrentMenu("scale-detail");
-        window.scrollTo(0, 0);
-      }}
+  setSelectedScaleId(scaleId);
+  addRecentScale(scaleId);
+  setPreviousMenu("history");
+  setCurrentMenu("scale-detail");
+  window.scrollTo(0, 0);
+}}
     />
   </>
 )}
@@ -389,9 +392,9 @@ return (
     <AppHeader
   title={selectedScale.shortTitle || selectedScale.title}
   onBack={() => {
-    setSelectedScaleId(null);
-    setCurrentMenu("scale-list");
-  }}
+  setSelectedScaleId(null);
+  setCurrentMenu(previousMenu);
+}}
   rightContent={
     <button
       className="favorite-button"
