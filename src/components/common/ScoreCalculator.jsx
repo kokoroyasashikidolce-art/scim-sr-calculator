@@ -120,7 +120,12 @@ ${selectedItemsText || "未選択"}`
         }
 
 ${domainTotals
-  .map((domain) => `${domain.title}：${domain.total}`)
+  .map(
+    (domain) =>
+      `${domain.title}：${domain.total}${
+        domain.maxScore ? ` / ${domain.maxScore}` : ""
+      }${scale.scoreUnit ?? "点"}`
+  )
   .join("\n")}
 
 【選択項目】
