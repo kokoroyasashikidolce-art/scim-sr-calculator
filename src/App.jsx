@@ -272,18 +272,30 @@ return (
         </span>
       </h1>
 
-      {currentMenu === "home" && (
-        <HomeDashboard onSelectMenu={setCurrentMenu} />
-      )}
+     {currentMenu === "home" && (
+  <HomeDashboard onSelectMenu={setCurrentMenu} />
+)}
 
-
-      {currentMenu === "scale-list" && (
+{currentMenu === "scale-list" && !selectedScale && (
   <>
     <AppHeader
       title="評価一覧"
       onBack={() => setCurrentMenu("home")}
     />
-    {currentMenu === "copy-result" && (
+
+    <ScaleList
+      scales={scales}
+      onSelectScale={(scaleId) => {
+        setSelectedScaleId(scaleId);
+        setCurrentMenu("scale-detail");
+        window.scrollTo(0, 0);
+      }}
+      onBackHome={() => setCurrentMenu("home")}
+    />
+  </>
+)}
+
+{currentMenu === "copy-result" && (
   <>
     <AppHeader
       title="コピー履歴"
@@ -294,20 +306,6 @@ return (
   </>
 )}
 
-
-    <ScaleList
-  scales={scales}
-  onSelectScale={(scaleId) => {
-    setSelectedScaleId(scaleId);
-    setCurrentMenu("scale-detail");
-    window.scrollTo(0, 0);
-  }}
-  onBackHome={() => setCurrentMenu("home")}
-/>
-
-  </>
-)}
-      
  {currentMenu === "scale-detail" && selectedScale && (
   <>
     <AppHeader
