@@ -25,6 +25,7 @@ import CopyHistory from "./components/CopyHistory";
 import FavoriteList from "./components/FavoriteList";
 import RecentList from "./components/RecentList";
 import SearchPage from "./components/SearchPage";
+import InfoPage from "./components/InfoPage";
 
 export default function App() {
   const scimSrScale = scales.find(
@@ -433,6 +434,17 @@ return (
         window.scrollTo(0, 0);
       }}
     />
+  </>
+)}
+
+{currentMenu === "info" && (
+  <>
+    <AppHeader
+      title="情報"
+      onBack={() => setCurrentMenu("home")}
+    />
+
+    <InfoPage />
   </>
 )}
 
