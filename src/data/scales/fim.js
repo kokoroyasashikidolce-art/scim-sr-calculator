@@ -1,3 +1,14 @@
+
+const fimOptions = [
+  { score: 1, label: "全介助　自分で行うのは25％未満" },
+  { score: 2, label: "最大介助　25％以上自分で行う" },
+  { score: 3, label: "中等度介助　50％以上自力で行う" },
+  { score: 4, label: "最小介助　75％以上自力で行う" },
+  { score: 5, label: "監視・準備　介助は不要だが見守り/指示/促しを要す" },
+  { score: 6, label: "修正自立　補助具を要す " },
+  { score: 7, label: "完全自立" },
+];
+
 export const fimScale = {
   id: "fim",
   title: "Functional Independence Measure",
@@ -88,13 +99,3 @@ export const fimScale = {
     },
   ],
 };
-
-const fimOptions = [
-  { score: 1, label: "全介助" },
-  { score: 2, label: "最大介助" },
-  { score: 3, label: "中等度介助" },
-  { score: 4, label: "最小介助" },
-  { score: 5, label: "監視・準備" },
-  { score: 6, label: "修正自立" },
-  { score: 7, label: "完全自立" },
-];
