@@ -26,6 +26,7 @@ import FavoriteList from "./components/FavoriteList";
 import RecentList from "./components/RecentList";
 import SearchPage from "./components/SearchPage";
 import InfoPage from "./components/InfoPage";
+import SettingsPage from "./components/SettingsPage";
 
 export default function App() {
   const scimSrScale = scales.find(
@@ -75,6 +76,36 @@ const addRecentScale = (scaleId) => {
     localStorage.setItem(RECENT_KEY, JSON.stringify(next));
     return next;
   });
+};
+
+const clearCopyHistory = () => {
+  if (!window.confirm("コピー履歴をすべて削除しますか？")) return;
+
+  localStorage.removeItem("rehab-score-copy-history");
+};
+
+const clearRecentHistory = () => {
+  if (!window.confirm("閲覧履歴をすべて削除しますか？")) return;
+
+  localStorage.removeItem("rehab-score-recent");
+  setRecentScaleIds([]);
+};
+
+const clearFavorites = () => {
+  if (!window.confirm("お気に入りをすべて削除しますか？")) return;
+
+  localStorage.removeItem("rehab-score-favorites");
+  setFavoriteScaleIds([]);
+};
+
+const clearSavedInputs = () => {
+  if (!window.confirm("保存済み入力をすべて削除しますか？")) return;
+
+  Object.keys(localStorage)
+    .filter((key) => key.startsWith("rehab-score-data-"))
+    .forEach((key) => localStorage.removeItem(key));
+
+  localStorage.removeItem("scim-sr-calculator-data");
 };
 
   const selectedScale = scales.find(
@@ -445,6 +476,22 @@ return (
     />
 
     <InfoPage />
+  </>
+)}
+
+{currentMenu === "settings" && (
+  <>
+    <AppHeader
+      title="設定"
+      onBack={() => setCurrentMenu("home")}
+    />
+
+    <SettingsPage
+      onClearCopyHistory={clearCopyHistory}
+      onClearRecentHistory={clearRecentHistory}
+      onClearFavorites={clearFavorites}
+      onClearSavedInputs={clearSavedInputs}
+    />
   </>
 )}
 
