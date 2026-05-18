@@ -1,18 +1,16 @@
 export default function InfoPage() {
 
-const contactEmail = "あなたのメールアドレス@example.com";
+const contactEmail = "rehasco.info@gmail.com";
 
 const createMailTo = () => {
   const subject = "リハすこ お問い合わせ";
 
-  const body = `【お問い合わせ種別】
-該当するものを残してください。
-・不具合ご報告
-・誤情報のご指摘
-・追記、修正の提案
-・追加してほしい評価スコア
-・機能リクエスト
-・その他
+  const body = `【お問い合わせ要件】（不要な行は削除してください）
+バグ報告
+機能要望
+誤情報指摘
+情報追加
+その他
 
 【内容】
 できるだけ具体的にご記載くださると助かります。
