@@ -5,28 +5,31 @@ const contactEmail = "rehasco.info@gmail.com";
 const createMailTo = () => {
   const subject = "リハすこ お問い合わせ";
 
-  const body = `【お問い合わせ要件】（不要な行は削除してください）
-バグ報告
-機能要望
-誤情報指摘
-情報追加
-その他
+  const lines = [
+    "【お問い合わせ要件】（不要な行は削除してください）",
+    "バグ報告",
+    "機能要望",
+    "誤情報指摘",
+    "情報追加",
+    "その他",
+    "",
+    "【内容】",
+    "できるだけ具体的にご記載くださると助かります。",
+    "",
+    "【該当する評価スコア・ページ】",
+    "例：SCIM-SR / MAS / FIM / BI / 検索 / コピー履歴 など",
+    "",
+    "【端末・環境】",
+    "端末：",
+    "OS：",
+    "ブラウザ：",
+    "PWA版 / ブラウザ版：",
+    "アプリバージョン：",
+    "",
+    "【その他】",
+  ];
 
-【内容】
-できるだけ具体的にご記載くださると助かります。
-
-【該当する評価スコア・ページ】
-例：SCIM-SR / MAS / FIM / BI / 検索 / コピー履歴 など
-
-【端末・環境】
-端末：
-OS：
-ブラウザ：
-PWA版 / ブラウザ版：
-アプリバージョン：
-
-【ほか】
-`;
+  const body = lines.join("\r\n");
 
   return `mailto:${contactEmail}?subject=${encodeURIComponent(
     subject
