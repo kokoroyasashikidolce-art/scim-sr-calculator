@@ -55,9 +55,9 @@ PWA版 / ブラウザ版：
       <div className="update-history">
     {`
 v0.1.0 2026/5/18 公開
-追加評価　SCIM-SR、MAS、FIM、BI
-追加機能　・検索　・お気に入り　・閲覧履歴　・コピー履歴
-　　　　　・入力保存　・PWA対応　・情報ページ
+追加評価 SCIM-SR、MAS、FIM、BI
+追加機能 ・検索 ・お気に入り ・閲覧履歴 ・コピー履歴
+        ・入力保存 ・PWA対応 ・情報ページ
 `}
       </div>
      </section>
