@@ -25,7 +25,7 @@ OS：
 PWA版 / ブラウザ版：
 アプリバージョン：
 
-【その他】
+【ほか】
 `;
 
   return `mailto:${contactEmail}?subject=${encodeURIComponent(
@@ -91,9 +91,18 @@ v0.1.0 2026/5/18 公開
   <a
     className="contact-button"
     href={createMailTo()}
+    target="_blank"
+    rel="noreferrer"
   >
     お問い合わせする
   </a>
+  <p className="description">
+  PCでメールアプリが開かない場合は、以下のメールアドレス宛にご連絡ください。
+</p>
+
+<p>
+  <strong>rehasco.info@gmail.com</strong>
+</p>
 </section>
     </>
   );
